@@ -1,7 +1,6 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import * as path from 'path';
-import { indexRoutes } from './routes/index.js';
 
 
 const filename = fileURLToPath(import.meta.url);
@@ -13,10 +12,9 @@ const app = express();
 // middlewares
 app.use(express.static("public"));
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(dirname, 'views'));
-
-app.use('/', indexRoutes);
+app.get('/', function(req, res) {
+    res.sendFile(path.join(dirname, "/views/index.html"))
+})
 
 /* Server  */
 app.listen(PORT, () => {
